@@ -29,7 +29,6 @@ data class ScopeDefinition(val scopeName: String, val module: Module) {
 
     /**
      * Declare a ScopeInstance definition
-     * @param scopeKey
      * @param name
      * @param override
      * @param definition - definition function
@@ -46,7 +45,9 @@ data class ScopeDefinition(val scopeName: String, val module: Module) {
     }
 
     internal fun release(instance: ScopeInstance) {
-        definitions.filter { it is ScopedInstance<*> }.forEach { it.instance.release(InstanceContext(scope = instance)) }
+        definitions
+                .filter { it.instance is ScopedInstance<*> }
+                .forEach { it.instance?.release(InstanceContext(scope = instance)) }
     }
 
     override fun toString(): String {

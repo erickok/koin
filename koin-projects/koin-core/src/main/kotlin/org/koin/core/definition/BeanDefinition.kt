@@ -34,7 +34,7 @@ data class BeanDefinition<T>(
         val primaryType: KClass<*>
 ) {
     var secondaryTypes = arrayListOf<KClass<*>>()
-    lateinit var instance: Instance<T>
+    var instance: Instance<T>? = null
     lateinit var definition: Definition<T>
     var options = Options()
     var attributes = Attributes()
@@ -64,17 +64,23 @@ data class BeanDefinition<T>(
     /**
      * Resolve instance
      */
-    fun <T> resolveInstance(context: InstanceContext) = instance.get<T>(context)
+    fun <T> resolveInstance(context: InstanceContext) = instance?.get<T>(context)
+            ?: error("Definition without any InstanceContext - $this")
 
     override fun toString(): String {
         val defKind = kind.toString()
-        val defName = name?.let { "scopeName:'$name', " } ?: ""
+        val defName = name?.let { "name:'$name', " } ?: ""
         val defType = "class:'${primaryType.getFullName()}'"
         val defOtherTypes = if (secondaryTypes.isNotEmpty()) {
             val typesAsString = secondaryTypes.joinToString(",") { it.getFullName() }
             ", classes:$typesAsString"
         } else ""
         return "[type:$defKind,$defName$defType$defOtherTypes]"
+    }
+
+    fun clear() {
+        instance?.close()
+        instance = null
     }
 }
 

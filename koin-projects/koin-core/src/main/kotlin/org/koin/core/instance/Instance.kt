@@ -42,8 +42,7 @@ abstract class Instance<T>(val beanDefinition: BeanDefinition<T>) {
 
     /**
      * Create an instance
-     * @param beanDefinition
-     * @param parameters
+     * @param context
      * @return T
      */
     open fun <T> create(context: InstanceContext): T {
@@ -73,6 +72,11 @@ abstract class Instance<T>(val beanDefinition: BeanDefinition<T>) {
      * Release the held instance (if hold)
      */
     abstract fun release(context: InstanceContext)
+
+    /**
+     * close the instance allocation from registry
+     */
+    abstract fun close()
 
     companion object {
         const val ERROR_SEPARATOR = "\n\t"

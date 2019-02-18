@@ -40,7 +40,6 @@ class BeanRegistry {
 
     /**
      * Load definitions from a Module
-     * @param koin instance
      * @param modules
      */
     fun loadModules(modules: Iterable<Module>) {
@@ -68,6 +67,7 @@ class BeanRegistry {
      */
     fun saveDefinition(definition: BeanDefinition<*>) {
         definitions.addDefinition(definition)
+        definition.createInstanceHolder()
         if (definition.name != null) {
             saveDefinitionForName(definition)
         } else {
@@ -110,11 +110,11 @@ class BeanRegistry {
     private fun saveDefinitionForName(definition: BeanDefinition<*>) {
         definition.name?.let {
             if (definitionsNames[it] != null && !definition.options.override) {
-                throw DefinitionOverrideException("Already existing definition or try to override an existing one with scopeName '$it' with $definition but has already registered ${definitionsNames[it]}")
+                throw DefinitionOverrideException("Already existing definition or try to override an existing one with name '$it' with $definition but has already registered ${definitionsNames[it]}")
             } else {
                 definitionsNames[it] = definition
                 if (logger.isAt(Level.INFO)) {
-                    logger.info("bind scopeName:'${definition.name}' ~ $definition")
+                    logger.info("bind name:'${definition.name}' ~ $definition")
                 }
             }
         }
@@ -161,7 +161,11 @@ class BeanRegistry {
     }
 
     fun close() {
+<<<<<<< HEAD
         definitions.forEach { it.instance.release(InstanceContext()) }
+=======
+        definitions.forEach { it.clear() }
+>>>>>>> ab397e0b229c64442e990557963994c1407d42b2
         definitions.clear()
         definitionsNames.clear()
         definitionsClass.clear()

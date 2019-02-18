@@ -1,5 +1,33 @@
-Restart problem / Ktor sample tests & Java restart
+-- Done --
+x release of singles
+x Scope API Callback
+x Scope injection params
+x getProperty with default value
+https://github.com/InsertKoinIO/koin/issues/344
 
+-- Bugs --
+* strict policy Android
+https://github.com/InsertKoinIO/koin/issues/350
 
-Fragment Manager -> injection by fragment
+-- Dev --
+* shutdown API Hook on single/factory/scoped +
+https://github.com/InsertKoinIO/koin/issues/349
+
+* Scope Params / properties -> in instance
+-> function context / injection params + scope / scope props
+
+* Fragment Manager -> injection by fragment
+
+* Ktor shutdown
+https://github.com/InsertKoinIO/koin/issues/348
+
+-- Doc ---
+* Changelog update
+* Scope Instance sample / http auth / non auth
+* Multi module app example
+* Making SDK With Koin / Koin instance isolation
+    -> https://medium.com/koin-developers/news-from-the-trenches-whats-next-for-koin-994791d572d5
+    -> good description of isolation
+
+* AndroidX sample project
 

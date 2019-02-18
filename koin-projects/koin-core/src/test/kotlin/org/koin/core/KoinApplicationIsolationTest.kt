@@ -48,7 +48,7 @@ class KoinApplicationIsolationTest {
         app.createEagerInstances()
 
         val def = app.getDefinition(Simple.ComponentA::class)!!
-        assertTrue(def.instance.isCreated(InstanceContext()))
+        assertTrue(def.instance!!.isCreated(InstanceContext()))
     }
 
     @Test

@@ -157,7 +157,6 @@ class Koin {
     /**
      * Create a Scope instance
      * @param scopeId
-     * @param scopeName
      */
     inline fun <reified T> createScopeWithType(scopeId: String): ScopeInstance {
         val scopeName = T::class.getFullName()
@@ -206,9 +205,10 @@ class Koin {
     /**
      * Retrieve a property
      * @param key
+     * @param defaultValue
      */
-    fun <T> getProperty(key: String): T? {
-        return propertyRegistry.getProperty<T>(key)
+    fun <T> getProperty(key: String, defaultValue: T? = null): T? {
+        return propertyRegistry.getProperty<T>(key) ?: defaultValue
     }
 
     /**
